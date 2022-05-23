@@ -1,0 +1,133 @@
+.footer{
+    grid-column:1/-1;
+    grid-row:5/6;
+    padding: 5rem 0 0 0;
+    border-top: .1rem solid color(primary);
+    @include flexPosition(space-around);
+
+    @include response(lg){
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
+
+.footer-nav{
+    @include footerList;
+    @include response(md){
+        padding-left: 1.5rem;
+    }
+
+    &-heading{
+        @include response(md){
+            padding-left: 1rem;
+        }
+    }
+}
+
+.contact-list{
+    @include footerList;
+    &-heading{
+        text-align: right;
+        @include response(md){
+            padding-right: 1rem;
+        }
+    }
+    text-align: right;
+    margin-top: 7.3rem;
+    @include response(md){
+        padding-right: 1.5rem;
+    }
+}
+
+.contact{
+    @include response(lg){
+        order:1;
+        margin-top: 4rem;
+    }
+
+    &-heading{
+        font-size: size(xl);
+        color: color(primary);
+        text-align: center;
+
+        @include response(md){
+            font-size: size(lg);
+        }
+    }
+
+    &-paragraph{
+        font-size: size(lg);
+        margin: 1rem 0;
+        text-align:center;
+
+        @include response(md){
+            font-size: size(md);
+        }
+    }
+
+    .inputs-group{
+        display:flex;
+        justify-content: center;
+        
+        input{
+            padding: 1rem;
+            font-size: size(xs);
+            margin: 1rem .5rem;
+            border: .1rem solid darken(color(primary),10%);
+            border-radius: .3rem;
+            outline:none;
+            transition:border .5s;
+
+            &:focus:not([type="submit"]){
+                border: .1rem solid darken(color(callToAction),30%);
+            }
+        }
+
+        &-text{
+            width:50%;
+        }
+
+        &-email{
+            width:60%;
+        }
+
+        &-btn{
+            width:40%;
+            @include callToActionButton;
+        }
+    }
+    .social-icons{
+        display: flex;
+        justify-content: space-between;
+        padding: 6rem 2rem 2rem 3rem;
+        box-sizing: border-box;
+        @include response(lg){
+            padding: 3rem 2rem;
+        }
+        &-item{
+            list-style: none;
+        }
+
+        &-link{
+            text-decoration: none;
+            width: 6rem;
+            height: 6rem;
+            border: .1rem solid color(primary);
+            border-radius: 100%;
+            @include flexPosition;
+            @include response(sm){
+                width: 4rem;
+                height: 4rem;
+            }
+
+            i{
+                font-size: size(md);
+                color: color(primary);
+
+                @include response(sm){
+                    font-size: size(sm);
+                }
+            }
+        }
+    }
+}

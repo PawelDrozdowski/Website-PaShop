@@ -1,0 +1,15 @@
+.heading{
+    grid-column:1/-1;
+    grid-row:1/2;
+    text-align:center;
+
+    &-text{
+        font-family: 'Montserrat Alternates', sans-serif;
+        font-size:size(xs);
+        font-weight:500;
+        letter-spacing: .5rem;
+        @include response(sm){
+            font-weight:700;
+        }
+    }
+}

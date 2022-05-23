@@ -1,0 +1,40 @@
+.products{
+    grid-column: 1/-1;
+    grid-row:4/5;
+
+    &-heading{
+        margin:3rem 0;
+        @include response(sm){
+            margin:1rem 0;
+        }
+        &-text{
+            text-align: center;
+            font-size: size(lg)+2rem;
+            font-weight: 300;
+            color: color(primary);
+        }
+    }
+
+    &-wrapper{
+        @include flexPosition;
+        flex-wrap: wrap;
+        padding:0 2vw;
+    }
+}
+
+.product{
+    position:relative;
+    max-width: calc(33% - 4px);
+    flex-basis: calc(33% - 4px);
+    @include basicProduct;
+    @include productInteractable;
+
+    @include response(sm){
+        max-width: calc(50% - 4px);
+        flex-basis: calc(50% - 4px);
+    }
+}
+
+.products-btn{
+    @include flexPosition;
+}

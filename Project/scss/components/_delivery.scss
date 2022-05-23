@@ -1,0 +1,39 @@
+.delivery{
+    margin: 0 0 2rem 2rem;
+    font-size: size(lg);
+
+    @include response(md){
+        font-size: size(xl)+0.4rem;
+    }
+
+    & input[type=text]{
+        font-size: size(xl);
+        margin: 1.6rem;
+    }
+    & input[type=email]{
+        font-size: size(xl);
+        margin: 1.6rem;
+    }
+
+    & input[type=radio]{
+        border: 0px;
+        width: size(md);
+        height: size(md);
+        margin-right: 1rem;
+        accent-color: color(callToAction);
+        @include response(md){
+            width: size(xl)+2rem;
+            height: size(xl)+2rem;
+        }
+        &:hover{
+            cursor:pointer;
+        }
+    }
+    & h2{
+        @extend .purchase-products-amount;
+        margin: 2rem 0;
+        @include response(md){
+            font-size: size(xl)+1.4rem;
+        }
+    }
+}

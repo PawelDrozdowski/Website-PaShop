@@ -1,0 +1,171 @@
+@mixin navigation {
+    &-list {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+    }
+    
+    &-item {
+        list-style: none;
+    }
+    
+    &-link {
+        color: color(primary);
+        text-decoration: none;
+        font-size: size(md);
+        transition: all .3s;
+        
+        &:hover {
+            color: lighten(color(primary), 40%);
+        }
+    }
+}
+@mixin flexPosition($justCont: center, $alignIte: center) {
+    display: flex;
+    justify-content: $justCont;
+    align-items: $alignIte;
+}
+
+@mixin callToActionButton{
+    color:color(secondary);
+    background-color: color(callToAction);
+    transition:background-color .2s;
+    border-radius: .3rem;
+    outline:none;
+    &:hover{
+        cursor: pointer;
+        background-color: lighten(color(callToAction), 10%);
+    }
+}
+
+@mixin basicProduct{
+    &-img{
+        width:100%;
+        height:50rem;
+        object-fit:contain;
+        opacity: 1;
+        transition: opacity 1s .1s;
+        @include response(lg){
+            height:45rem;
+        }
+        @include response(sm){
+            height:30rem;
+        }
+    }
+
+    &-description{
+        font-family: 'Montserrat Alternates', sans-serif;
+        font-weight: 900;
+        font-size: size(md);
+        text-align: center;
+        transition: color 1s .1s;
+        @include response(sm){
+            font-size: size(xs)-0.2rem;
+        }
+    }
+    &-price{
+        font-size: size(sm);
+        margin-top: 5%;
+        text-align: center;
+    }
+}
+
+@mixin productInteractable{
+    &:hover{
+        cursor: pointer;
+    }
+
+    &:hover &-img{
+        opacity: .8;
+        transition: opacity 1s;
+    }
+
+    &:hover &-description{
+        color: lighten(black, 60%);
+        transition: color 1s;
+    }
+}
+
+@mixin footerList {
+    &-heading {
+        font-size: size(lg);
+        color: color(primary);
+        @include response(md){
+            font-size: size(xl)+0.5rem;
+        }
+    }
+    
+    &-item {
+        list-style: none;
+        margin: 1rem 0;
+        @include response(md){
+            margin: 1.3rem 0;
+        }
+    }
+    
+    &-link {
+        font-size: size(xs);
+        text-decoration: none;
+        color: lighten(color(primary), 15%);
+        transition: color .2s;
+
+        @include response(md){
+            font-size: size(lg);
+        }
+
+        &:hover {
+            color: lighten(color(primary), 35%);
+        }
+    }
+}
+
+@mixin response($breakpoint) {
+    @if($breakpoint == xl) {
+        @media(max-width: 1200px) {
+            @content;
+        }
+    }
+    
+    @if($breakpoint == lg) {
+        @media(max-width: 1000px) {
+            @content;
+        }
+    }
+    
+    @if($breakpoint == md) {
+        @media(max-width: 760px) {
+            @content;
+        }
+    }
+    
+    @if($breakpoint == sm) {
+        @media(max-width: 560px) {
+            @content;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

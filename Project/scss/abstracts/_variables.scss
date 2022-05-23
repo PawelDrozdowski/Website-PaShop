@@ -1,0 +1,33 @@
+$colors:(
+primary:#333,
+secondary:#ffe,
+tertiary:#fcfcfc,
+callToAction:#0E659C,
+price:#CF0001
+);
+
+@function color($color-name){
+    @return map-get($colors,$color-name);
+}
+
+$font-sizes: (
+    xl: 3rem,
+    lg: 2.5rem,
+    md: 2rem,
+    sm: 1.8rem,
+    xs: 1.6rem
+);
+
+@function size($size) {
+    @return map-get($font-sizes, $size);
+}
+
+//primary:
+// font-family: 'Proza Libre', sans-serif;
+
+//secondary:
+// font-family: 'Montserrat Alternates', sans-serif;
+
+//backup:
+// font-family: 'Cormorant Garamond', serif;
+

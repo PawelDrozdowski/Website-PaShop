@@ -1,0 +1,61 @@
+.product-slideshow{
+    &-container {
+        position: relative;
+        width: calc(45% - 4px);
+        margin:auto;
+        @include response(md){
+            width: 100%;
+        }
+    }
+    &-slide{
+        display: none;
+
+        & img{
+            display: block;
+            object-fit:contain;
+            margin:auto;
+            height: 60rem;
+        }
+    }
+    &-btn{
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        margin-top: -4rem;
+        padding: 4rem 1.5rem;
+        color: color(primary);
+        background-color: transparent;
+        font-weight: bold;
+        font-size: size(lg);
+
+        border: 3px solid color(primary);
+        border-radius: .3rem;
+
+        transition: color, background-color 0.4s ease;
+        @include response(md){
+            padding: 5rem 3rem;
+            font-size: size(xl)+1rem;
+        }
+    }
+}
+
+.next {
+  right: 5%;
+}
+@media(min-width: 1200px){
+    .prev:hover, .next:hover {
+        background-color: color(primary);
+        color: color(secondary);
+        transition: color, background-color 0.4s ease;
+    }
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}

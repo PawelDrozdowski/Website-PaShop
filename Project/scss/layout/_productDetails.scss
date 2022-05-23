@@ -1,0 +1,93 @@
+.details{
+    grid-column: 1/-1;
+    grid-row:3/4;
+    margin-bottom: 7%;
+    @include flexPosition(left,start);
+    flex-wrap:wrap;
+    @include response(lg){
+        @include flexPosition;
+        flex-direction: column;
+        flex-wrap:nowrap;
+    }
+
+    &-preview{
+        max-width: calc(50% - 4px);
+        flex-basis: calc(45% - 4px);
+        text-align: justify;
+        @include response(md){
+            max-width: 100%;
+            flex-basis: 100%;
+        }
+    }
+    &-description{
+        text-align: justify;
+        padding: 0 2.5rem;
+        @include response(md){
+            font-size: size(lg);
+        }
+    }
+}
+.details-purchase{
+    @include flexPosition(left, start);
+    padding-left: 5%;
+    max-width: calc(50% - 4px);
+    flex-basis: calc(50% - 4px);
+
+    position: sticky;
+    top: 12%;
+
+    @include response(md){
+        margin-top:3rem;
+        max-width: 1000%;
+        padding-left: 0;
+        position: unset;
+    }
+    &-name{
+        font-family: 'Montserrat Alternates', sans-serif;
+        font-weight: 900;
+        text-align: left;
+        font-size: size(xl);
+        letter-spacing: 0.35rem;
+        @include response(md){
+            font-size: size(xl)+1rem;
+        }
+    }
+    &-price{
+        font-size: size(lg);
+        color: color(price);
+        font-weight: 900;
+        text-align: left;
+        margin-top:2.5rem;
+        @include response(md){
+            font-size: size(xl)+1rem;
+        }
+    }
+    & span{
+        display: inline-block;
+        font-size: size(lg);
+        width:66%;
+        @include response(md){
+            font-size: size(xl)+1rem;
+        }
+    }
+    & .select{
+        margin-top: 5rem;
+        width:33%;
+        @include response(md){
+            font-size: size(xl)+1rem;
+            margin-top: 8rem;
+        }
+    }
+    &-btn{
+        @include callToActionButton;
+        margin-top: 5rem;
+        font-size: size(lg);
+        width:100%;
+        height:5rem;
+        @include response(md){
+            font-size: size(xl);
+            height:9rem;
+            margin: 8rem 0 2rem 0;
+        }
+    }
+}

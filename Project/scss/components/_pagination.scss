@@ -1,0 +1,25 @@
+.pagination{
+    width:100%;
+    @include flexPosition;
+}
+
+.pagination-list{
+    list-style-type: none;
+    font-size: size(md);
+    @include flexPosition;
+
+    &-item{
+        padding: 0 2rem;
+
+        &-link{
+            color: color(primary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color .2s;
+
+            &:hover {
+                color: lighten(color(primary), 35%);
+            }
+        }
+    }
+}

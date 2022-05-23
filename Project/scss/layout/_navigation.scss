@@ -1,0 +1,13 @@
+.first-nav{
+    grid-column:3/8;
+    grid-row:1/2;
+    @include navigation;
+    padding: 1.4rem 0;
+    @include response(lg){
+        grid-column: 2/9;
+    }
+    @include response(md){
+        padding: 1.8rem 0;
+        grid-column: 1/-1;
+    }
+}

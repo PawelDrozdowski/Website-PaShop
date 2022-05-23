@@ -1,0 +1,145 @@
+.purchase-products{
+    max-width: calc(70% - 4px);
+    flex-basis: calc(70% - 4px);
+    text-align: justify;
+    min-height: 100vh;
+    @include response(lg){
+        max-width: 100%;
+        flex-basis: 100%;
+        min-height: 110vh;
+    }
+    &-welcome{
+        padding-left: 2rem;
+    }
+    &-amount{
+        font-size: size(xl);
+    }
+    &-encouragement{
+        font-size: size(xs);
+        color: lighten(color(primary), 20%);
+    }
+    &-empty{
+        max-width: calc(100% - 4px);
+        flex-basis: calc(100% - 4px);
+        @include flexPosition;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 41vh;
+    }
+}
+.purchase-products-item{
+    position:relative;
+    @include flexPosition(start,center);
+    padding: 2rem;
+    @include response(md){
+        min-height:28rem;
+    }
+    &>*{
+        display: inline-block;
+    }
+    &-details{
+        @include flexPosition(left,start);
+        flex-direction: column;
+        @include response(md){
+            & .select{
+                width:7rem;
+            }
+        }
+    }
+    &-name{
+        font-size: size(xl);
+        margin-bottom: 1rem;
+    }
+    &-description{
+        font-size: size(xs);
+        text-align: justify;
+        margin-bottom: 1rem;
+        @include response(md){
+            font-size: size(xs)-0.4rem;
+        }
+    }
+    &-size{
+        font-size: size(lg);
+        margin-bottom: 1rem;
+    }
+    &-price{
+        font-size: size(lg);
+        margin-left: 4rem;
+    }
+    &-remove{
+        position:absolute;
+        top:0;
+        right:0;
+        margin: 2.5rem 2.5rem 0 0;
+        border: 1px solid color(primary);
+        border-radius: 100%;
+        background-color: transparent;
+        @include response(md){
+            margin: 2rem 2rem 0 0;
+        }
+        &:hover{
+            cursor: pointer;
+        }
+        & i{
+            width: 3rem;
+            height: 3rem;
+            @include flexPosition;
+            @include response(md){
+                width: 4rem;
+                height: 4rem;
+            }
+        }
+    }
+    &-img{
+        width:25rem;
+    }
+    & img{
+        width:25rem;
+
+        margin:auto;
+        object-fit: cover;
+    }
+}
+.purchase{
+    &-details{
+        border: 2px solid color(primary);
+        border-radius: .3rem;
+        padding: 2.2rem;
+        max-width: calc(25% - 4px);
+        flex-basis: calc(25% - 4px);
+        position: sticky;
+        top: 11%;
+        @include response(lg){
+            margin-top: 8rem;
+            max-width: calc(80% - 4px);
+            flex-basis: calc(80% - 4px);
+            padding: 3rem;
+            position: unset;
+        }
+        &-agreement{
+            display: block;
+            font-size: size(xs);
+            width: 100%;
+            text-align: center;
+        }
+        & .hr-solid{
+            margin-top: 5rem;
+        }
+    }
+    &-summary{
+        font-size: size(xl)+0.5rem;
+        display: inline-block;
+        width: 60%;
+        margin-top: 5rem;
+        &-first{
+            margin-top: 0;
+        }
+    }
+    
+    &-cost{
+        font-size: size(xl)+0.5rem;
+        display: inline-block;
+        width: 38%;
+        text-align: right;
+    }
+}

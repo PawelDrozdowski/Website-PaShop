@@ -1,0 +1,16 @@
+.select {
+    border: none;
+    align-items: center;
+
+    border: 2px solid color(primary);
+    border-radius: .3rem;
+    outline:none;
+
+    font-size: size(lg);
+    cursor: pointer;
+
+    & option{
+        width:100%;
+        min-width: 0;
+    }
+}

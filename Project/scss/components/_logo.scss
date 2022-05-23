@@ -1,0 +1,17 @@
+.logo{
+    grid-column:1/2;
+    grid-row:1/2;
+
+    &-img{
+        width:38rem;
+        height:100%;
+        margin:1rem;
+    }
+    &-img-small{
+        width:24rem;
+        height:100%;
+        @include response(md){
+            width:26rem;
+        }
+    }
+}

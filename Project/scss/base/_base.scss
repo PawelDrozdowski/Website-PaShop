@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Proza Libre', sans-serif;
+    font-weight: 300;
+}
+a{
+    text-decoration: none;
+    color: color(primary);
+}
+html {
+    font-size: 62.5%;
+
+    @include response(md){
+        font-size: 56.25%;
+    }
+    @include response(sm){
+        font-size: 50%;
+    }
+}
+.hr{
+    &-solid{
+        margin:2% 25%;
+        border: 0;
+        height: 2px;
+        background-image: linear-gradient(to right, transparent, color(primary), transparent); 
+    }
+}
+
+.container{
+    display:grid;
+    grid-template-columns: minmax(6rem,1fr) repeat(8,minmax(min-content,16rem)) minmax(6rem,1fr);
+    grid-template-rows: repeat(5,min-content);
+    grid-row-gap: 1.6rem;
+    background-color: color(tertiary);
+}
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-align: center;
+    @include flexPosition;
+    border: 2px solid black;
+    text-decoration: none;
+}
