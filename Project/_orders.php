@@ -25,48 +25,80 @@
     <a href="_menu.php" class="button inputs-group-btn admin-backBtn">Back</a>
 
     <div class="contact" style="grid-column:1/-1">
-      <div class="inputs-group" style="width:calc(100% - 2rem)">
-        <input type="number" class="admin-table-input" name="id" placeholder="ID" style="margin: 0 1%;">
-        <input type="text" class="admin-table-input" name="client" placeholder="Client" style="margin: 0 1%;">
-        <input type="text" class="admin-table-input" name="delivery" placeholder="Delivery" style="margin: 0 1%;">
-        <input type="number" class="admin-table-input" name="price" placeholder="Price" style="margin: 0 1%;">
-        <input type="text" class="admin-table-input" name="payment" placeholder="Payment" style="margin: 0 1%;">
-        <input type="text" class="admin-table-input" name="status" placeholder="Status" style="margin: 0 1%;">
-        <input type="date" class="admin-table-input" name="dateFrom" placeholder="Date From" style="margin: 0 1%;">
-        <input type="date" class="admin-table-input" name="dateTo" placeholder="Date To" style="margin: 0 1%;">
-        <button class="inputs-group-btn" style="margin: 0 1%;font-size: 2rem; width:10%;">Search</button>
-      </div>
+      <form action="_orders.php" method="GET">
+        <div class="inputs-group" style="width:calc(100% - 2rem)">
+          <input type="number" class="admin-table-input" name="id" placeholder="ID" style="margin: 0 1%;">
+          <input type="text" class="admin-table-input" name="client" placeholder="Client" style="margin: 0 1%;">
+          <input type="text" class="admin-table-input" name="delivery" placeholder="Delivery" style="margin: 0 1%;">
+          <input type="number" class="admin-table-input" name="price" placeholder="Price" style="margin: 0 1%;">
+          <input type="text" class="admin-table-input" name="payment" placeholder="Payment" style="margin: 0 1%;">
+          <input type="text" class="admin-table-input" name="status" placeholder="Status" style="margin: 0 1%;">
+          <input type="date" class="admin-table-input" name="dateFrom" placeholder="Date From" style="margin: 0 1%;">
+          <input type="date" class="admin-table-input" name="dateTo" placeholder="Date To" style="margin: 0 1%;">
+          <input type="submit" class="inputs-group-btn" value="Search" style="margin: 0 1%;font-size: 2rem; width:10%;">
+        </div>
+      </form>
       <table class="admin-table">
-        <tr class="admin-table-row">
-          <td class="admin-table-orders">1</td>
-          <td class="admin-table-orders">Paweł Drozdowski</td>
-          <td class="admin-table-orders">InPost</td>
-          <td class="admin-table-orders">$25</td>
-          <td class="admin-table-orders">Cash</td>
-          <td class="admin-table-orders">Delivered</td>
-          <td class="admin-table-ordersX2">18.06.2019 14:20:11</td>
-          <td class="admin-table-orders"><a href="#"><i class="fa-solid fa-angle-down"></i></a></td>
-        </tr>
-        <tr class="admin-table-row">
-          <td class="admin-table-orders">2</td>
-          <td class="admin-table-orders">Paweł Drozdowski</td>
-          <td class="admin-table-orders">In person</td>
-          <td class="admin-table-orders">$105</td>
-          <td class="admin-table-orders">Check</td>
-          <td class="admin-table-orders">Sent</td>
-          <td class="admin-table-ordersX2">18.06.2019 13:10:43</td>
-          <td class="admin-table-orders"><a href="#"><i class="fa-solid fa-angle-down"></i></a></td>
-        </tr>
-        <tr class="admin-table-row">
-          <td class="admin-table-orders">3</td>
-          <td class="admin-table-orders">Tymon Tymański</td>
-          <td class="admin-table-orders">InPost</td>
-          <td class="admin-table-orders">$60</td>
-          <td class="admin-table-orders">Cash</td>
-          <td class="admin-table-orders">Delivered</td>
-          <td class="admin-table-ordersX2">19.06.2019 11:00:03</td>
-          <td class="admin-table-orders"><a href="#"><i class="fa-solid fa-angle-down"></i></a></td>
-        </tr>
+        <?php
+        $columns = ['id','client','delivery','payment','status','price','dateFrom','dateTo'];
+        $arr = [];
+        for($i = 0; $i<count($columns);$i++){
+          if(isset($_GET[$columns[$i]]) && $_GET[$columns[$i]] != ""){
+            if($i > 4)//payment, dateFrom, dateTo
+              array_push($arr, $_GET[$columns[$i]]);
+            else
+              array_push($arr, "%".$_GET[$columns[$i]]."%");
+          }
+          else{
+            if($i == 6)//dateFrom
+              array_push($arr, "1989-01-01");
+            else if($i == 7)//dateTo
+              array_push($arr, date("Y-m-d H:i:s"));
+            else
+              array_push($arr,"%");
+          }   
+        }
+
+        $server = "localhost";
+        $user = "root";
+        $password = "";
+        try {
+          //print_r($arr);
+          $conn = new PDO("mysql:host=$server;dbname=pashop",$user, $password);
+          $stmt = $conn->prepare('SELECT ORDERS.id, CONCAT(fname, " ", lname) AS "client", order_date, price,
+           DELIVERY_TYPES.name AS delivery, PAYMENT_TYPES.name AS payment, STATUS_TYPES.name AS "status"
+           FROM ORDERS
+           LEFT JOIN DELIVERY_TYPES ON ORDERS.delivery_id = DELIVERY_TYPES.id
+           LEFT JOIN STATUS_TYPES ON ORDERS.status_id = STATUS_TYPES.id
+           LEFT JOIN PAYMENT_TYPES ON ORDERS.payment_id = PAYMENT_TYPES.id
+           HAVING ORDERS.id LIKE ?
+            AND client LIKE ?
+            AND delivery LIKE ?
+            AND payment LIKE ?
+            AND status LIKE ?
+            AND price LIKE ?
+            AND order_date >= ?
+            AND order_date <= ?');
+          
+          $stmt->execute($arr);
+          while($row = $stmt->fetch()){
+            echo"
+              <tr class='admin-table-row'>
+                <td class='admin-table-orders'>".$row['id']."</td>
+                <td class='admin-table-orders'>".$row['client']."</td>
+                <td class='admin-table-orders'>".$row['delivery']."</td>
+                <td class='admin-table-orders'>$".$row['price']."</td>
+                <td class='admin-table-orders'>".$row['payment']."</td>
+                <td class='admin-table-orders'>".$row['status']."</td>
+                <td class='admin-table-ordersX2'>".$row['order_date']."</td>
+                <td class='admin-table-orders'><a href='#'><i class='fa-solid fa-angle-down'></i></a></td>
+              </tr>";
+          }
+        } catch(PDOException $e) {
+          echo "Connection error: " . $e->getMessage();
+        }
+        
+        ?>
       </table>
     </div>
 
