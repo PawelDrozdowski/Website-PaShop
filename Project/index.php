@@ -1,5 +1,8 @@
 <?php
 session_start();
+function isMobile() {
+  return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,57 +37,27 @@ session_start();
     <!--End of Header-->
 
     <!--Slidershow-->
-    <section class="slideshow" width="100vw" height="80vh">
-      <div class="slideshow-slide">
-        <div class="slideshow-content">
-          <h2>Slide 1</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eius iusto cum consequuntur enim eveniet delectus
-            doloribus similique at assumenda maxime.</p>
-        </div>
-        <img src="images/img1.webp" alt="" width="100vw" height="80vh">
-      </div>
+    <?php
+    //remove slideshow for faster mobile load
+    if(!isMobile()){
+      echo"<section class='slideshow' width='100vw' height='80vh'>";
 
-      <div class="slideshow-slide">
-        <div class="slideshow-content">
-          <h2>Slide 2</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eius iusto cum consequuntur enim eveniet delectus
-            doloribus similique at assumenda maxime.</p>
-        </div>
-        <img src="images/img2.webp" alt="" width="100vw" height="80vh">
-      </div>
+      for($i=1; $i<6;$i++){
+          echo"
+            <div class='slideshow-slide'>
+            <div class='slideshow-content'>
+                <h2>Slide $i</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Eius iusto cum consequuntur enim eveniet delectus
+                doloribus similique at assumenda maxime.</p>
+            </div>
+            <img src='images/img$i.webp' alt='' width='100vw' height='80vh'>
+            </div>";
+      }
+    }
 
-      <div class="slideshow-slide">
-        <div class="slideshow-content">
-          <h2>Slide 3</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eius iusto cum consequuntur enim eveniet delectus
-            doloribus similique at assumenda maxime.</p>
-        </div>
-        <img src="images/img3.webp" alt="" width="100vw" height="80vh">
-      </div>
-
-      <div class="slideshow-slide">
-        <div class="slideshow-content">
-          <h2>Slide 4</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eius iusto cum consequuntur enim eveniet delectus
-            doloribus similique at assumenda maxime.</p>
-        </div>
-        <img src="images/img4.webp" alt="" width="100vw" height="80vh">
-      </div>
-
-      <div class="slideshow-slide">
-        <div class="slideshow-content">
-          <h2>Slide 5</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eius iusto cum consequuntur enim eveniet delectus
-            doloribus similique at assumenda maxime.</p>
-        </div>
-        <img src="images/img5.webp" alt="" width="100vw" height="80vh">
-      </div>
-    </section>
+    echo"</section>";
+    ?>
     <!--End of Slidershow-->
 
     <!--Products-->
@@ -105,7 +78,7 @@ session_start();
 
             echo 
               "<a href=\"$href\" class='product'>
-              <img src=\"$img\" alt='' class='product-img' loading='lazy'>
+              <img src=\"$img\" alt='' class='product-img'>
               <h2 class='product-description'>
                 $desc 
               </h2>
