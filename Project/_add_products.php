@@ -24,30 +24,31 @@
     <a href="_menu.php" class="button inputs-group-btn admin-backBtn">Back</a>
 
     <div class="contact" style="grid-column:1/-1">
-      <form action="">
+      <form action="components/_add-product.php" method="POST">
         <div class="inputs-group" style="flex-direction: column;">
-          <input type="text" class="admin-table-input" name="name" placeholder="Name" style="width: 10%;">
-          <button class="inputs-group-btn" style="margin: 0 1%;font-size: 2rem; width:10%;">Add Photo</button>
+          <input type="text" class="admin-table-input" name="add_name" placeholder="Name" style="width: 10%;">
+          <input type="text" class="admin-table-input" name="add_id" placeholder="ID (for new size)" style="width: 10%;">
+
           <div style="width: 10%; margin: 0 1%;">
-            <img src="images/product1.png" style="width: 100%;">
-            <p id="admin-productPhoto-label" style="width: 100%; text-align: center;">photo.jpg</p>
+            <img src="images/product1.webp" style="width: 100%;">
+            <p id="admin-productPhoto-label" style="width: 100%; text-align: center;">photo-id-.webp<br/>Remember to upload a photo to ./images/</p>
           </div>
 
-          <input type="number" class="admin-table-input" name="price" placeholder="Price">
+          <input type="number" class="admin-table-input" name="add_price" placeholder="Price">
           
           <div style="width: 20%; display: flex; align-items: center;">
-            <input type="number" class="admin-table-input" name="quantity" placeholder="Quantity"style="width: 50%;">
-            <select class="select admin-table-input" style="width: 20%;">
-              <option value="Option 1">S</option>
-              <option value="Option 2">M</option>
-              <option value="Option 1">L</option>
-              <option value="Option 2">XL</option>
+            <input type="number" class="admin-table-input" name="add_quantity" placeholder="Quantity"style="width: 50%;">
+            <select class="select admin-table-input" name="add_size" style="width: 20%;">
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
             </select>
           </div>
 
           <div style="width: 65vw; display: flex; align-items: center;">
-            <textarea class="admin-table-input" rows="6" name="description" placeholder="Description" style="width: 70%; padding: 1rem; margin: 0.5%;"></textarea>
-            <button class="inputs-group-btn" style="font-size: 2rem; width:10%;">Add</button>
+            <textarea class="admin-table-input" rows="6" name="add_description" placeholder="Description" style="width: 70%; padding: 1rem; margin: 0.5%;"></textarea>
+            <input type="submit" class="inputs-group-btn" value="Add" style="font-size: 2rem; width:10%;">
           </div>
 
         </div>
