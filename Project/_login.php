@@ -1,3 +1,31 @@
+<?php
+  session_start();
+  if(isset($_SESSION["login"]))
+    header("Location: _menu.php");
+  else if(isset($_POST["login"],$_POST["password"])){
+      $server = "localhost";
+      $user = "root";
+      $password = "";
+      try {
+        $arr = [$_POST["login"], $_POST["password"]];
+        $conn = new PDO("mysql:host=$server;dbname=pashop",$user, $password);
+        $stmt = $conn->prepare('SELECT mail, password FROM USERS
+            WHERE mail = ?
+            AND password = ?
+            LIMIT 1');
+        $stmt->execute($arr);
+        
+        if($row = $stmt->fetch()){
+          $_SESSION["login"] = $row["mail"];
+          header("Location: _menu.php");
+        }
+      }
+      catch(PDOException $e) {
+          echo "Connection error: " . $e->getMessage();
+      }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +58,7 @@
         For employees only. Have a good day!
       </p>
 
-      <form action="_menu.php">
+      <form action="_login.php" method="POST">
         <div class="inputs-group" >
           <input type="email" class="inputs-group-text" name="login" placeholder="Email" style="width:100%">
         </div>

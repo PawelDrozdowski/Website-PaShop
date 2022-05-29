@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    if(!isset($_SESSION["login"]))
+      header("Location: _login.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,10 +30,13 @@
 
     <div class="contact" style="grid-column:4/8">
       <div class="admin-menu-btn-container">
+        <?php
+          echo "<h2>Welcome ". $_SESSION['login'] ." </h2>";
+        ?>
         <a href="_products.php" class="button inputs-group-btn admin-menu-btn">Products</a>
         <a href="_orders.php" class="button inputs-group-btn admin-menu-btn">Orders</a>
         <a href="_users.php" class="button inputs-group-btn admin-menu-btn">Accounts</a>
-        <a href="_login.php" class="button inputs-group-btn admin-menu-btn" style="width: 32%;">Logout</a>
+        <a href="components/_logout.php" class="button inputs-group-btn admin-menu-btn" style="width: 32%;">Logout</a>
       </div>
     </div>
 
