@@ -4,7 +4,7 @@
 
     $enabled = $valuesSet ? $_POST["modify_enabled"] : -1;
 
-    print_r($_POST);
+    //print_r($_POST);
   if($valuesSet && ctype_digit($_POST["base_id"]) && ctype_digit($enabled) && ctype_digit($price) && ctype_digit($quantity)){
     $correctEnabled = $enabled == 0 || $enabled == 1;
     
@@ -34,15 +34,3 @@
   }
   header("Location: ../_products.php");
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html>
