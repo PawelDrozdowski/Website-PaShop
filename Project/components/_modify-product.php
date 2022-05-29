@@ -3,7 +3,8 @@
         $_POST["modify_price"],$_POST["modify_quantity"],$_POST["modify_enabled"]);
 
     $enabled = $valuesSet ? $_POST["modify_enabled"] : -1;
-
+    $price = $valuesSet ? $_POST["modify_price"] : -1;
+    $quantity = $valuesSet ? $_POST["modify_quantity"] : 0;
     //print_r($_POST);
   if($valuesSet && ctype_digit($_POST["base_id"]) && ctype_digit($enabled) && ctype_digit($price) && ctype_digit($quantity)){
     $correctEnabled = $enabled == 0 || $enabled == 1;
