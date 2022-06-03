@@ -1,10 +1,10 @@
 <?php
 
-  if(!isset($_GET["0"])||!isset($_GET["1"])||!isset($_GET["2"])||!isset($_GET["3"])){
+  if(!isset($_GET["id"])){
     header("Location: index.php");
     die();
   }
-  $id = $_GET["0"];
+  $id = $_GET["id"];
   if(!file_exists("images/product$id.webp")){
     header("Location: index.php");
     die();
@@ -82,7 +82,39 @@
       <div class="product-slideshow-container">
 
         <?php
-          $id = $_GET["0"];//GET checked at top
+          $id = $_GET["id"];//GET checked at top
+          $server = "localhost";
+          $user = "root";
+          $password = "";
+          try {
+            $arr = [$_GET['id']];
+            $sizes = [];
+            $name = "";
+            $description = "";
+            $price = 0;
+            //print_r($arr);
+            $conn = new PDO("mysql:host=$server;dbname=pashop",$user, $password);
+            $stmt = $conn->prepare('SELECT PRODUCTS.base_id, size, quantity, enabled, name, price, description
+              FROM PRODUCTS
+              LEFT JOIN PRODUCT_BASE ON PRODUCTS.base_id = PRODUCT_BASE.id
+              HAVING PRODUCTS.base_id = ?
+                AND quantity > 0
+                AND enabled = 1');
+            
+            $stmt->execute($arr);
+            $first =true;
+            while($row = $stmt->fetch()){
+              if($first){
+                $name = $row['name'];
+                $description = $row['description'];
+                $price = $row['price'];
+                $first = false;
+              }
+              array_push($sizes, $row['size']);
+            }
+          }catch(PDOException $e) {
+            echo "This product does not exist!";
+          }
 
           echo
           "<div class='product-slideshow-slide fade'>
@@ -109,27 +141,26 @@
         <div>
           <h2 class="details-purchase-name">
             <?php
-              echo $_GET["1"];//GET checked at top
+              echo $name;
             ?>
           </h2>
           <h2 class="details-purchase-price">
             <?php
-              echo '$'.$_GET["3"];//GET checked at top
+              echo '$'.$price;
             ?>
           </h2>
 
           <form method="post">
             <?php
-              $id = $_GET["0"];
               echo "<input name='id' type='hidden' value='$id'></input>";
             ?>
 
             <span>Size:</span>
             <select name="size" class="select">
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
+              <?php
+                for($i=0; $i<count($sizes);$i++)
+                  echo"<option value=".$sizes[$i].">".$sizes[$i]."</option>";
+              ?>
             </select>
 
             <span>Quantity:</span>
@@ -142,13 +173,8 @@
             </select>
             <div class="inputs-group">
               <input type="submit" name='to_cart' class="details-purchase-btn" value="Buy">
-              <input type="submit" name='reset' class="details-purchase-btn" value="Reset - dev tool">
             </div>
           </form>
-          <?php
-            if(isset($_SESSION["products"]))
-              echo  json_encode($_SESSION["products"]);
-          ?>
 
         </div>
       </div>
@@ -157,7 +183,7 @@
           <hr class="hr-solid">
           <h2 class="product-description details-description">
             <?php
-              echo $_GET["2"];//GET checked at top
+              echo $description;
             ?>
           </h2>
         </div>

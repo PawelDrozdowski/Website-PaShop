@@ -69,12 +69,24 @@ function isMobile() {
       <div class="products-wrapper">
         <!--Gallery-->
         <?php
-          include("components/_temp-products.php");
-          for($i=0; $i<count($products);$i++){
-            $desc = $products[$i][1] . " - " . substr($products[$i][2],0,17) . "...";
-            $img = "images/product" . $products[$i][0] . ".webp";
-            $href = "product.php?" . http_build_query($products[$i]);
-            $price = $products[$i][3];
+        $server = "localhost";
+        $user = "root";
+        $password = "";
+        try {
+          $conn = new PDO("mysql:host=$server;dbname=pashop",$user, $password);
+          $stmt = $conn->prepare(
+            'SELECT PRODUCT_BASE.id, name, price, description
+            FROM PRODUCT_BASE
+            LIMIT 3'
+          );
+          
+          $stmt->execute();
+          while($row = $stmt->fetch()){
+            //print_r($row);
+            $desc = $row['name'] . " - " . substr($row['description'],0,17) . "...";
+            $img = "images/product" . $row['id'] . ".webp";
+            $href = "product.php?id=" . $row['id'];
+            $price = $row['price'];
 
             echo 
               "<a href=\"$href\" class='product'>
@@ -87,6 +99,9 @@ function isMobile() {
               </h2>
               </a>";
           }
+        }catch(PDOException $e) {
+          echo "Connection error: " . $e->getMessage();
+        }
         ?>
       </div>
       <!--End of Gallery-->

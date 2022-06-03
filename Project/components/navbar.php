@@ -9,18 +9,18 @@
         </li>
         <!-- Dropdown -->
         <li class="first-nav-item dropdown-li">
-          <a href="products_gallery.php" class="first-nav-link">
+          <a href="products_gallery.php?category=all" class="first-nav-link">
             Products
           </a>
           <ul class="dropdown">
             <li class="dropdown-item">
-              <a href="products_gallery.php" class="dropdown-link">
+              <a href="products_gallery.php?category=1" class="dropdown-link">
                 Men
               </a>
             </li>
 
             <li class="dropdown-item">
-              <a href="products_gallery.php" class="dropdown-link">
+              <a href="products_gallery.php?category=2" class="dropdown-link">
                 Women
               </a>
             </li>

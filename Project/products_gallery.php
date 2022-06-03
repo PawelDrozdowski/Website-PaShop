@@ -36,55 +36,46 @@ session_start();
       </div>
 
       <div class="products-wrapper">
-        <div class="product">
-          <img src="images/product4.webp" alt="" class="product-img">
-          <h2 class="product-description">
-            Joop Shirt - Lorem ipsum dolor...
-          </h2>
-          <h2 class="product-price">
-            $20
-          </h2>
-        </div>
+      <?php
+        $category = "%";
+        if(isset($_GET['category']) && $_GET['category'] != "all")
+          $category = $_GET['category'];
 
-        <div class="product">
-          <img src="images/product5.webp" alt="" class="product-img">
-          <h2 class="product-description">
-            Joop Shirt - Lorem ipsum dolor...
-          </h2>
-          <h2 class="product-price">
-            $20
-          </h2>
-        </div>
+        $arr = [$category];
+        $server = "localhost";
+        $user = "root";
+        $password = "";
+        try {
+          $conn = new PDO("mysql:host=$server;dbname=pashop",$user, $password);
+          $stmt = $conn->prepare(
+            'SELECT PRODUCT_BASE.id, name, price, description, category
+            FROM PRODUCT_BASE
+            WHERE category LIKE ?'
+          );
+          
+          $stmt->execute($arr);
+          while($row = $stmt->fetch()){
+            //print_r($row);
+            $desc = $row['name'] . " - " . substr($row['description'],0,17) . "...";
+            $img = "images/product" . $row['id'] . ".webp";
+            $href = "product.php?id=" . $row['id'];
+            $price = $row['price'];
 
-        <div class="product">
-          <img src="images/product6.webp" alt="" class="product-img">
-          <h2 class="product-description">
-            Joop Shirt - Lorem ipsum dolor...
-          </h2>
-          <h2 class="product-price">
-            $20
-          </h2>
-        </div>
-
-        <div class="product">
-          <img src="images/product3.webp" alt="" class="product-img">
-          <h2 class="product-description">
-            Joop Shirt - Lorem ipsum dolor...
-          </h2>
-          <h2 class="product-price">
-            $20
-          </h2>
-        </div>
-
-        <div class="product">
-          <img src="images/product7.webp" alt="" class="product-img">
-          <h2 class="product-description">
-            Joop Shirt - Lorem ipsum dolor...
-          </h2>
-          <h2 class="product-price">
-            $20
-          </h2>
-        </div>
+            echo 
+              "<a href=\"$href\" class='product'>
+              <img src=\"$img\" alt='' class='product-img'>
+              <h2 class='product-description'>
+                $desc 
+              </h2>
+              <h2 class='product-price'>
+                $$price
+              </h2>
+              </a>";
+          }
+        }catch(PDOException $e) {
+          echo "Connection error: " . $e->getMessage();
+        }
+        ?>
       </div>
       <br />
       <!-- Pagination -->
