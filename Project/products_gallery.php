@@ -48,9 +48,14 @@ session_start();
         try {
           $conn = new PDO("mysql:host=$server;dbname=pashop",$user, $password);
           $stmt = $conn->prepare(
-            'SELECT PRODUCT_BASE.id, name, price, description, category
+            'SELECT PRODUCT_BASE.id, name, price, description, category, max(quantity) as max_q, max(enabled) as max_en
             FROM PRODUCT_BASE
-            WHERE category LIKE ?'
+            LEFT JOIN PRODUCTS ON PRODUCTS.base_id = PRODUCT_BASE.id
+            WHERE category LIKE ?
+            GROUP BY PRODUCT_BASE.id
+            HAVING max_en = 1
+            AND max_q > 0
+            LIMIT 30'
           );
           
           $stmt->execute($arr);

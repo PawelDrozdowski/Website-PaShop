@@ -12,7 +12,7 @@
                     <span class='purchase-summary'>Total:</span>
                     <span id='total-cost' class='purchase-cost'>$$total_cost</span>
                     <div class='inputs-group'>
-                        <input type='submit' class='purchase-details-btn details-purchase-btn' value='Continue'>
+                        <input type='submit' type='submit' form='order' class='purchase-details-btn details-purchase-btn' value='Continue'>
                         <span class='purchase-details-agreement'>By clicking “Continue” you agree with 
                             <a href='#'>Terms of Service</a>
                         </span>

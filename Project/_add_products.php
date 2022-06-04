@@ -29,17 +29,10 @@
     <a href="_menu.php" class="button inputs-group-btn admin-backBtn">Back</a>
 
     <div class="contact" style="grid-column:1/-1">
-      <form action="components/_add-product.php" method="POST">
+      <form action="components/_add-product-size.php" method="POST">
+      <h1>Add size</h1>
         <div class="inputs-group" style="flex-direction: column;">
-          <input type="text" class="admin-table-input" name="add_name" placeholder="Name" style="width: 10%;">
-          <input type="text" class="admin-table-input" name="add_id" placeholder="ID (for new size)" style="width: 10%;">
-
-          <div style="width: 10%; margin: 0 1%;">
-            <img src="images/product1.webp" style="width: 100%;">
-            <p id="admin-productPhoto-label" style="width: 100%; text-align: center;">photo-id-.webp<br/>Remember to upload a photo to ./images/</p>
-          </div>
-
-          <input type="number" class="admin-table-input" name="add_price" placeholder="Price">
+          <input type="text" class="admin-table-input" name="add_id" placeholder="ID" style="width: 10%;">
           
           <div style="width: 20%; display: flex; align-items: center;">
             <input type="number" class="admin-table-input" name="add_quantity" placeholder="Quantity"style="width: 50%;">
@@ -48,6 +41,35 @@
               <option value="M">M</option>
               <option value="L">L</option>
               <option value="XL">XL</option>
+            </select>
+          </div>
+
+          <div style="width: 65vw; display: flex; align-items: center;">
+            <input type="submit" class="inputs-group-btn" value="Add" style="font-size: 2rem; width:10%;">
+          </div>
+
+        </div>
+      </form>
+      
+      <hr class='hr-solid'>
+
+      <form action="components/_add-product.php" method="POST">
+        <h1>Add product</h1>
+        <div class="inputs-group" style="flex-direction: column;">
+          <input type="text" class="admin-table-input" name="add_name" placeholder="Name" style="width: 10%;">
+          <input type="text" class="admin-table-input" name="add_id" placeholder="ID (unique)" style="width: 10%;">
+
+          <div style="width: 10%; margin: 0 1%; text-align:center">
+            <i class="fa-solid fa-file-arrow-up"style="font-size:10rem; color:#0E659C"></i>
+            <p id="admin-productPhoto-label" style="width: 100%; text-align: center;">photo-id-.webp<br/>Remember to upload a photo to ./images/</p>
+          </div>
+
+          <input type="number" class="admin-table-input" name="add_price" placeholder="Price">
+          
+          <div style="width: 20%; display: flex; align-items: center;">
+            <select class="select admin-table-input" name="add_category" style="width: 59%;">
+              <option value="1">Men</option>
+              <option value="2">Women</option>
             </select>
           </div>
 

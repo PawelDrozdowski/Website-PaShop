@@ -36,13 +36,28 @@ if(!isset($_SESSION["products"]))
     <!--End of Header-->
 
     <!--Details-->
+    <form id="order" action="cart-delivery.php"></form>
     <section class="details">
     <?php
-      include("components/_temp-products.php");
+      $server = "localhost";
+      $user = "root";
+      $password = "";
+      try {
+        $conn = new PDO("mysql:host=$server;dbname=pashop",$user, $password);
+        $stmt = $conn->prepare(
+          'SELECT PRODUCT_BASE.id, name, price, description
+          FROM PRODUCT_BASE'
+        );
+          
+        $stmt->execute();
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      }catch(PDOException $e) {
+        echo "Connection error: " . $e->getMessage();
+      }
       $amount = count($_SESSION["products"]);
       $products_cost = 0;
       $shipment_cost = 5;
-      $a = $_SESSION["products"];
+
 
       if(isset($_POST["id"]) && isset($_POST["quantity"])){
         $_id = $_POST["id"];
@@ -60,17 +75,17 @@ if(!isset($_SESSION["products"]))
           for($i=0;$i<count($_SESSION["products"]);$i++)
           {
             $id = $_SESSION["products"][$i][0]-1;
-            $name = $products[$id][1];
-            $desc = $name . " - " . substr($products[$id][2],0,90);
-            $img = "images/product" . $products[$id][0] . ".webp";
-            $href = "product.php?" . http_build_query($products[$id]);
-            $unitPrice = $products[$id][3];
+            $name = $products[$id]['name'];
+            $desc = $name . " - " . substr($products[$id]['description'],0,90);
+            $img = "images/product" . $products[$id]['id'] . ".webp";
+            $href = "product.php?" . $products[$id]['id'];
+            $unitPrice = intval($products[$id]['price']);
 
             $size = $_SESSION["products"][$i][1];
             $quantity = $_SESSION["products"][$i][2];
-            $price = $unitPrice * $quantity;
+            $price = intval($unitPrice) * intval($quantity);
 
-            $products_cost += $price;
+            $products_cost += intval($price);
             $id++;
             echo
               "<li class='purchase-products-item'>
@@ -154,7 +169,7 @@ if(!isset($_SESSION["products"]))
         var parent = $(this).parent();
         var id = $(parent).find(".id").val();
         var size = $(parent).find(".size").text();
-        console.log(size);
+
         updateCart(id, size, 0);
         updateCost(parent, 0);
         $(this).parent().remove();
@@ -165,7 +180,7 @@ if(!isset($_SESSION["products"]))
         var quantity = $(this).val();
         var parent = $(this).parent();
         var size = $(parent).parent().find(".size").text();
-        console.log(size);
+
         var id = $(parent).find(".id").val();
         updateCost(parent, quantity);
         updateCart(id, size, quantity);
