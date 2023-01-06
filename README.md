@@ -1,0 +1,1 @@
+# PaShop - PHP shop template
